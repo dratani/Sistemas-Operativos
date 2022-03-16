@@ -9,7 +9,7 @@ int main(void) {
 	while (programa[0] != '0') {
 		if (fork() == 0) {
 			estado = execl(programa,0);
-			printf ("Error en %s => %d\n", programa, estado);
+			printf ("Srror en %s => %d\n", programa, estado);
 			_exit (1);
 		} else {
 			pid = wait(&estado);
