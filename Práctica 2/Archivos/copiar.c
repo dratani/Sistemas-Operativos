@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     printf("Bytes leídos: %d\n",leidos);
     printf("Bytes escritos: %d\n",escritos);
     printf("Búffer: %s \n",buffer);
-    sleep(.1);
+    sleep(1);
   } while (leidos == BLOQUE);
   close(dfOrg);
   close(dfDst);
