@@ -12,11 +12,11 @@ int main(void) {
 	} else {
 		printf("[P] MiPadre = %5d Yo = %5d MiHijo = %5d\n",
 		getppid(), getpid(), pid);
-		pid = waitpid(-1,&estado,0);
-		if (WIFEXITED(estado)){
+//		pid = wait (&estado);
+   pid = waitpid(-1,&estado,0);
+			if (WIFEXITED(estado)){
 			printf("[P]: Termino el hijo %d con estado %d\n",
-		 	pid, WEXITSTATUS(estado));	
+		 	pid, WEXITSTATUS(estado));
 		}
-		
 	}
 }
