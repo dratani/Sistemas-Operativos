@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-  pid_t pid;
+  int pid;
   int status;
   pid = fork();
   if(pid==0)
@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     else
     {
       printf("[P] Esperaré al H1\n");
-      while(pid != wait(&status));
+      pid = wait(&status);
     }
   pid = fork();
   if(pid== 0)
@@ -30,6 +30,6 @@ int main(int argc, char *argv[])
   else
   {
     printf("[Padre] Esperaré al H2\n");
-    while(pid != wait(&status));
+    pid = wait(&status);
   }
 }
