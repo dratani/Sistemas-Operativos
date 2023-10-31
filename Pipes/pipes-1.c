@@ -29,7 +29,6 @@ int main(int argc, char const *argv[]) {
         flag=0;
       }
       printf("Proceso receptor. MENSAJE:%s\n",mensaje);
-      write
       /*Aquí se debe implementar el envío de mensaje "LISTO" al proceso receptor (usando la segunda tubería)
        para indicar que el proceso está listo para recibir otro mensaje*/
     }
