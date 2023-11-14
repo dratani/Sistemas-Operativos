@@ -2,22 +2,26 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
-void accion_alarma (int s)
+void captura (int s)
 {
-	printf("Pasaron 2 segundos, señal: %d\n",s);
+	if (s==SIGALRM) {
+		printf("Pasaron 2 segundos, señal: %d\n",s);
+	}
+	if (s==SIGFPE) {
+		printf("Error punto flotante, señal: %d\n",s);
+	}
+	if (s==SIGINT){
+		printf("Recibí interrupción por teclado, señal: %d\n",s);
+	}
 }
-void acction_flotante (int s)
-{
-	printf("Se recibió un flotante %d \n",s );
-}
+
 int main ()
 {
-	struct sigaction tratamiento_alarma;
-	struct sigaction tratamiento_flotante;
-	tratamiento_alarma.sa_handler = accion_alarma;
-	tratamiento_flotante.sa_handler = acction_flotante;
-	sigaction (SIGALRM, &tratamiento_alarma,NULL);
-	sigaction(SIGFPE, &tratamiento_flotante,NULL);
+	struct sigaction capturadorSenial;
+	capturadorSenial.sa_handler = captura;
+	sigaction (SIGALRM, &capturadorSenial,NULL);
+	sigaction(SIGFPE, &capturadorSenial,NULL);
+	sigaction(SIGINT, &capturadorSenial, NULL);
 	while (1) {
     alarm(2);
     pause();
