@@ -44,22 +44,31 @@ void operacion_P(int id_semaforo) {
         exit(EXIT_FAILURE);
     }
 }
+void operacion_V(int id_semaforo) {
+    operacion.sem_num = id_semaforo; // Índice del semáforo en el conjunto (en este caso solo hay uno)
+    operacion.sem_op = 1; // Valor a añadir al semáforo
+    operacion.sem_flg = 0; // Flags adicionales (en este caso no se necesitan)
 
+    if (semop(id_semaforo, &operacion, 1) == -1) {
+        perror("Error al realizar la operación de semáforo");
+        exit(EXIT_FAILURE);
+    }
+}
 int main() {
     key_t key = ftok("/tmp", 'S'); // Generar una clave única para el conjunto de semáforos
-    int id_semaforo = crear_semaforo(key); // Obtener el ID del conjunto de semáforos
+    int id_semaforo = crear_semaforos(key); // Obtener el ID del conjunto de semáforos
 
     // Inicializar el semáforo
-    inicializar_semaforo(id_semaforo);
+    inicializar_semaforos(id_semaforo);
 
     // Realizar operaciones de semáforo
     printf("Proceso 1 intentando acceder a la región crítica...\n");
-    operacion_P(id_semaforo, -1); // Decrementar el valor del semáforo
+    operacion_P(id_semaforo); // Decrementar el valor del semáforo
     printf("Proceso 1 entrando en la región crítica.\n");
     // Región crítica
     sleep(2); // Simular trabajo en la región crítica
     printf("Proceso 1 saliendo de la región crítica.\n");
-    operacion_V(id_semaforo, 1); // Incrementar el valor del semáforo
+    operacion_V(id_semaforo); // Incrementar el valor del semáforo
 
     // Destruir el conjunto de semáforos
     destruir_semaforos(id_semaforo);
