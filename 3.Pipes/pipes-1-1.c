@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #define MAX 256
 
 int tuberia_emisor_receptor[2];
@@ -41,6 +42,7 @@ int main(int argc, char const *argv[]) {
           strcmp(mensaje,"FIN\n")!=0);
     close (tuberia_emisor_receptor[1]);
     close (tuberia_emisor_receptor[0]);
+    wait(NULL);
     exit (0);
   }
 }
